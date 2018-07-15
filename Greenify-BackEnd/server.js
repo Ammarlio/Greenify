@@ -89,7 +89,7 @@ app.post("/users", function(req,res){
 
 app.get("/plants", function (req, res) {
 
- db.Plant.find({}, function(err, plants) {
+  db.Plant.find({}, function(err, plants) {
 
     res.send(plants);  
   });
@@ -162,31 +162,38 @@ app.get("/plants/:number", function (req, res) {
 
 app.post("/deletePlant/:id",function(req, res){
 
-    var id = req.params.id;
-    var arr = [];
-  db.User.findOne({username:req.session.user.username}, function(err, data){
+  var id = req.params.id;
+  var arr = [];
 
-    arr = data.plants;
-    for(var i = 0 ; i < arr.length ; i++){
-      if(arr[i].toString() === id){
-        data.plants.splice(i, 1);
+    db.User.findOne({username:req.session.user.username}, function(err, data){
+
+      arr = data.plants;
+
+      for(var i = 0 ; i < arr.length ; i++){
+        if(arr[i].toString() === id){
+
+          data.plants.splice(i, 1);
+        }
       }
-    }
-    db.User.findOneAndUpdate({username: req.session.user.username}, 
+
+      db.User.findOneAndUpdate({username: req.session.user.username}, 
+        
+        { plants: arr }, function(err, mod){
+          res.send(arr);
+        });
       
-      { plants: arr }, function(err, mod){
-        res.send(arr);
-      });
-    
-  });
+    });
 
 });
 
 // Launch the server on port 3000
 if(!module.parent) {
-var port = 3000;
-app.listen(port, () => {
+
+  var port = 3000;
+  app.listen(port, () => {
   console.log("Listening at http:/localhost:" + port );
-});
+  });
 }
+
+
 module.exports = app;

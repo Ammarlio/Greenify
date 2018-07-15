@@ -31,9 +31,9 @@ let userSchema = mongoose.Schema({
   password: { type: String, required: true },
   phonenumber:Number,
   plants: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Plant"
-    }]
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Plant"
+          }]
 });
 
 //these are two model one for every schema.
@@ -46,14 +46,14 @@ let User = mongoose.model("User", userSchema);
 
 let saveUser = (data,callback) => {
 
- var user = new User(data);
+  var user = new User(data);
 
- user.save(function(err,data){
- 	if(err){
-   		callback(err,null);
- 	} else {
- 		callback(null,data);
- 	}
+  user.save(function(err,data){
+   	if(err){
+     	callback(err,null);
+   	} else {
+   		callback(null,data);
+   	}
  }); 
 
 };

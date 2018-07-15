@@ -24,9 +24,9 @@ exports.createSession = function(req, res, newUser) {
 //comparing password
 exports.comparePassword = function(password,user, cb) {
   bcrypt.compare(password, user.password, function(err, isMatch) {
-    if (err){
+    if (err) {
       cb(err);
-    }else{
+    }else {
     cb(null, isMatch);
   }
   });
@@ -39,9 +39,9 @@ exports.hash = function(obj, callback){
   bcrypt.hash(obj.password, 10, function(err, hash) {
     obj.password=hash;
     db.save(obj, function(err,data){
-      if(err){
+      if(err) {
         callback(err,null);
-      }else{
+      }else {
         callback(null,data); 
       }
     });

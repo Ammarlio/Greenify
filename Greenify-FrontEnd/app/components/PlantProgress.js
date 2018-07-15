@@ -8,45 +8,61 @@ import {ScrollView, StyleSheet, Text, View ,TouchableOpacity,TextInput,Image} fr
 import { DB_URL } from 'react-native-dotenv';
 export default class PlantProgress extends React.Component {
     constructor(){
-    super();
-  }
+      super();
+    }
 
-  delete = () => {
-     const plant = this.props.navigation.getParam('plant');
-     console.log('plant',plant._id)
+    delete = () => {
+      const plant = this.props.navigation.getParam('plant');
+      console.log('plant',plant._id)
 
-  fetch(DB_URL+"/deletePlant/"+plant._id,{
-          method: 'POST',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-             plants : plant._id
-          })
-      }).then((data) => {
+    fetch(DB_URL+"/deletePlant/"+plant._id,{
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        plants : plant._id
+      })
+    }).then((data) => {
         alert('Deleted Successfully')
-         this.props.navigation.navigate('Profile')
+        this.props.navigation.navigate('Profile')
       })
     } 
 
-render() {
- const plant = this.props.navigation.getParam('plant');
+  render() {
+    const plant = this.props.navigation.getParam('plant');
 
-  return (
-    <ScrollView>
-    <View style={styles.container}>
-      <Image source={{uri:plant.imageUrl}} style={{width: 175, height: 200,margin:25}} borderRadius={20}/>
-      <Text style={styles.text}>{plant.name}</Text>
-      <View style={{borderWidth:1,borderRadius:5,margin:10}}>
-      <Text style={{margin:15,fontSize:16,textAlign:'center',fontFamily:'notoserif'}}>Lighting: {plant.light}</Text>
-      <Text style={{margin:15,fontSize:16,textAlign:'center',fontFamily:'notoserif'}}>Watering: {plant.watering}</Text>
-      <Text style={{margin:15,fontSize:16,textAlign:'center',fontFamily:'notoserif'}}>Fertilizer:  {plant.fertilizer}</Text>
-      <Text style={{margin:15,fontSize:16,textAlign:'center',fontFamily:'notoserif'}}>Air Humidity: {plant.humidity}</Text>
-      </View>
-       <TouchableOpacity onPress={this.delete}><Text style={styles.text}>delete</Text></TouchableOpacity>
-    </View>
-    </ScrollView>
+    return (
+      <ScrollView>
+        <View style={styles.container}>
+          <Image source={{uri:plant.imageUrl}} style={{width: 175, height: 200,margin:25}} borderRadius={20}/>
+          <Text style={styles.text}>
+            {plant.name}
+          </Text>
+          <View style={{borderWidth:1,borderRadius:5,margin:10}}>
+            <Text style={{margin:15,fontSize:16,textAlign:'center',fontFamily:'notoserif'}}>
+              Lighting: {plant.light}
+            </Text>
+            <Text style={{margin:15,fontSize:16,textAlign:'center',fontFamily:'notoserif'}}>
+              Watering: {plant.watering}
+            </Text>
+            <Text style={{margin:15,fontSize:16,textAlign:'center',fontFamily:'notoserif'}}>
+              Fertilizer:  {plant.fertilizer}
+            </Text>
+            <Text style={{margin:15,fontSize:16,textAlign:'center',fontFamily:'notoserif'}}>
+              Air Humidity: {plant.humidity}
+            </Text>
+          </View>
+
+          <TouchableOpacity onPress={this.delete}>
+            <Text style={styles.text}>
+              delete
+            </Text>
+          </TouchableOpacity>
+
+        </View>
+      </ScrollView>
     )
   }
 }
@@ -58,19 +74,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: 'center'
   },
-   input: {
+  input: {
     margin: 15,
     height: 40,
     borderColor: '#7a42f4',
     borderWidth: 1
-   },
-   text:{
+  },
+  text:{
     fontSize:20,
     textAlign:'center',
     margin:15,
     fontWeight:'bold',
     color:'#7ead9b'
-   },
+  },
   button: {
     padding:20,
     borderWidth:1,
